@@ -1,7 +1,7 @@
 本文通过源码去分析express框架是如何工作的。
 
 先了解下express框架结构,如下图所示：
-![express structure](\public\images\express-routing.svg)
+![express structure](./public/images/express-routing.svg)
 
 图片引用自: [how-expressjs-works](https://www.sohamkamani.com/blog/2018/05/30/understanding-how-expressjs-works/)
 (英文水平好的也可以看下这篇文章，这里我们记录下自己的分析)
@@ -325,7 +325,7 @@ Route.prototype.dispatch = function dispatch(req, res, done) {
 
 至此一次请求就完成了。
 附上另一张图,引用自: [how-expressjs-works](https://www.sohamkamani.com/blog/2018/05/30/understanding-how-expressjs-works/)
-![express-structure-req-res](\public\images\express-routing-http.svg)
+![express-structure-req-res](./public/images/express-routing-http.svg)
 
 
 
@@ -432,7 +432,7 @@ function jsonParser (req, res, next) {
     })
   }
 ```
-附上一张图:![layer - express.json()](\public\images\express_json.png)
+附上一张图:![layer - express.json()](./public/images/express_json.png)
 
 可以看到app.use最后是用到router.use，最终也是通过生成新的layer的形式去控制。
 万物皆围绕layer。
@@ -465,7 +465,7 @@ app.listen(4399,(err)=>{
     console.log("server started successfully")
 })
 ```
-app.use->router.use我们不再赘述,先附上一张debug时候的图:![express-router](\public\images\express-router.png)
+app.use->router.use我们不再赘述,先附上一张debug时候的图:![express-router](./public/images/express-router.png)
 可以看到我们在`new express.Router()`的时候返回给我们的是下面这个方法
 
 ```node
@@ -508,7 +508,7 @@ app.lazyrouter = function lazyrouter() {
 ```
 但是我们自定义的router最终是变成了layer的形式，存在下图第一个layer层级，也就是router.stack里面
 [](https://www.sohamkamani.com/blog/2018/05/30/understanding-how-expressjs-works/)
-![express-structure-req-res](\public\images\express-routing-http.svg)
+![express-structure-req-res](./public/images/express-routing-http.svg)
 
 当我们再去访问 /user/route的时候，会匹配上我们这个装有router的layer,调用layer.handle_request,最后会调用router()
 ```node
@@ -561,7 +561,7 @@ app.get('/',(req,res)=>{
 ```
 ##### 分析
 我们直接看系统监听之后我们的router.stack里面的layer情况
-![express-structure-req-res](\public\images\express-next.png)
+![express-structure-req-res](./public/images/express-next.png)
 上图中第三第四个就是我们自定义的两个get。
 
 router里面的next(),再次说到这一层我们的两个路由的layer绑定的是route.dispatch方法。
